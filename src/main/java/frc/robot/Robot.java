@@ -127,8 +127,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
-        double forward = -joystick.getY();
-        double turn = joystick.getX();
+       
+
+
         //System.out.printf("Forward: %.2f  Turn: %.2f%n", forward, turn);
         double axis0 = joystick.getRawAxis(0);
         double axis1 = joystick.getRawAxis(1);
@@ -137,6 +138,11 @@ public class Robot extends TimedRobot {
         System.out.printf(
         "A0: %.2f  A1: %.2f  A2: %.2f  A3: %.2f%n",
         axis0, axis1, axis2, axis3);
+
+        double forward = -joystick.getY();
+        double turn = joystick.getX();
+        forward = forwardLimiter.calculate(forward);
+        turn = turnLimiter.calculate(turn);
 
         drive.arcadeDrive(forward, turn);
   }
